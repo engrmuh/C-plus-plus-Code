@@ -1,0 +1,153 @@
+/*
+ Engr . Muhammad Umer Haroon
+ Linked List Implemetation
+ www.softwaredestiny.com
+
+*/
+
+#include <iostream>
+using namespace std;
+//FUNCTIONS PROTOTYPES
+
+void append(int);
+void traverse();
+int isEmpty();
+int insert(int);
+int delet(int);
+
+//STRUCTURE DEFINITION
+struct node {
+	int data;
+	struct node *next;
+};
+
+//POINTERS WE NEED
+node *First;
+node *current;
+node *temp;
+
+
+// MAIN FUNCTION
+int main()
+{
+	First=NULL;
+	current=NULL;
+
+	append(1);
+	append(2);
+	append(3);
+	append(4);
+	append(15);
+	append(18);
+	insert(9);
+	append(21);
+	traverse();
+	cout<<"\n.......";
+	insert(2);
+	delet(3);
+	delet(9);
+	delet(1);
+	traverse();
+
+}
+//THIS FUNCTION APPENDS DATA TO THE LAST OF THE LINKD LIST
+void append(int num)
+{
+	temp=new node;
+	temp->data=num;
+	temp->next=NULL;
+	if (First==NULL)
+	{
+		First=temp;
+	}
+	else {
+
+		current=First;
+		while (current->next!=NULL)
+		{
+			current=current->next;
+		}
+		current->next=temp;
+	}
+}
+
+
+
+//THIS FUNCTION DISPLAYS ALL THE ELEMENTS OF THE LIST
+void traverse()
+{
+
+	current=First;
+	cout<<"\n";
+	while(current!=NULL)
+	{
+		cout<<current->data<<endl;
+		current=current->next;
+	}
+}
+
+
+//CHECKS IF THE LIST IS EMPTY
+int isEmpty()
+{
+	if (First==NULL) return 1;
+	return 0;
+}
+
+
+//INSERT THE NUMBER IN THE MIDDLE IN ASCENDING ORDER
+int insert(int num)
+{
+	temp=new node;
+	temp->data=num;
+	temp->next=NULL;
+	if (First==NULL)
+	{
+		First=temp;
+	}
+	else {
+
+		current=First;
+		while ((current->next!=NULL)&&(num>current->next->data))
+		{
+			current=current->next;
+		}
+		if (current->next==NULL) {
+			current->next=temp;
+		}
+		else {
+			temp->next=current->next;
+			current->next=temp;
+		}
+	}
+	return 1;
+}
+
+
+//DLETES THE NUMBER SPECIFIED BY THE USER
+int delet(int num)
+{
+	temp=new node;
+	if (First==NULL) return 0;
+	else if (First->data==num) {
+		temp=First;
+		First=First->next;
+		delete temp;
+	}
+	while ((current->next!=NULL)&&(num!=current->next->data))
+	{
+		current=current->next;
+	}
+	if (current->next==NULL) {
+		return 0;
+	}
+	else {
+		temp=current->next;
+		current->next=temp;
+		current->next=current->next->next;
+		delete temp;
+		return 1;
+	}
+
+	return 0;
+}
